@@ -1,0 +1,20 @@
+{
+  "name": "1ra-preentrega",
+  "version": "1.0.0",
+  "description": "1ra-preentrega del proyecto del curso de Backend 1",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon src/app"
+  },
+  "keywords": [],
+  "author": "Ricardo Lemos",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
