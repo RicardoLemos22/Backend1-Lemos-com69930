@@ -1,14 +1,14 @@
 {
   "name": "2da-preentrega",
   "version": "1.0.0",
-  "description": "",
+  "description": "2da-preentrega del proyecto del curso de Backend 1",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ricardo Lemos",
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2"
