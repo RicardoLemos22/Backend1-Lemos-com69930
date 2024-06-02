@@ -1,0 +1,14 @@
+npm i express
+npm i -D nodemon
+npm i express-handlebars
+npm i socket.io
+
+luego en "package.json"
+add >> "type": "module",
+//para que funcionen los imports
+
+tb crear un script para levantar el server
+>>"dev": "nodemon ./src/app"
+
+luego tb si no esta instalado de forma global ejecutar asi:
+>>"dev": "npx nodemon src/app"
