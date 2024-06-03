@@ -4,14 +4,15 @@ import __dirname from "./dirname.js"
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
 import viewsRoutes from "./routes/views.routes.js";
-import productManager from "./productManager.js";
+//import productManager from "./productManager.js";
 
-const PORT = 8080;
+const PORT = 8081;
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/static",express.static("public"));
+app.use(express.static("public"));
+
 
 //2da entrega
 app.engine("handlebars", handlebars.engine());
@@ -30,6 +31,7 @@ app.use("/", viewsRoutes);
 const httpServer = app.listen(PORT, () => {
   console.log(`El servidor ahora esta escuchando en el puerto ${PORT}.`);
 });
+
 
 //configuro el Socket
 export const io = new Server(httpServer);
