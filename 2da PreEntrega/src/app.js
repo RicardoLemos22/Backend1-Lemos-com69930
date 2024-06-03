@@ -4,7 +4,7 @@ import __dirname from "./dirname.js"
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
 import viewsRoutes from "./routes/views.routes.js";
-//import productManager from "./productManager.js";
+import productManager from "./productManager.js";
 
 const PORT = 8081;
 const app = express();
@@ -38,6 +38,6 @@ export const io = new Server(httpServer);
 
 io.on("connection", async socket => {
   console.log("Un nuevo usuario se ha conectado al servidor.");
-  // const products = await productManager.getProducts();
-  // io.emit("products", products );
+  const products = await productManager.getProducts();
+  io.emit("products", products );
 });
