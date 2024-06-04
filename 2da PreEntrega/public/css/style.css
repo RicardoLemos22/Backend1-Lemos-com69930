@@ -28,7 +28,16 @@
     margin-top: 20px;
   }
 
-  .producto-card {
+.bienvenidos-container2 {
+    padding: 20px;
+    background-color: #cdcdcd;
+    margin-top: 20px;
+  }
+.bienvenidos-container2 h2 {
+  text-align: center;
+}
+
+.producto-card {
     border: none;
     margin: 20px 0;
   }

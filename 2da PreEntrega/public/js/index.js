@@ -1,7 +1,7 @@
 const socket = io();
 const productsList = document.getElementById("productsList");
-// const addForm = document.getElementById("addForm");
-// const deleteForm = document.getElementById("deleteForm");
+const addForm = document.getElementById("addForm");
+const deleteForm = document.getElementById("deleteForm");
 
 // Recibir los productos
 socket.on("products", (data) => {
@@ -28,36 +28,69 @@ socket.on("products", (data) => {
 
 
 // Agregar productos
-// addForm.addEventListener("submit", async (e) => {
-//     e.preventDefault();
-//     const title = document.getElementById("title").value;
-//     const price = document.getElementById("price").value;
-//     const description = document.getElementById("description").value;
+addForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const title = document.getElementById("title").value;
+    const description = document.getElementById("description").value;
+    const price = document.getElementById("price").value || 0;;
   
-//     await fetch("/realtimeproducts", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({title, price, description})
-//     })
+    if (!title || !description) {
+      Swal.fire({
+        text: `Ingrese un título y descripción`,
+        icon: "error",
+        position: "top-center",
+        timer: 2000
+      })
+
+      return;
+
+    }
+
+    await fetch("/realtimeproducts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({title, description, price})
+    })
   
-//     addForm.reset();
+    addForm.reset();
+    
+    Swal.fire({
+      text: `Se ha agregado un nuevo producto: ` + title.toUpperCase() ,
+      icon: "success",
+      position: "top-center",
+      timer: 2000
+    })
+
+  })
   
-//   })
+
+// Eliminar productos
+deleteForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const id = document.getElementById("id").value;
+    
+    if (!id || id === "0") {
+      return;
+    }
+
+    await fetch("/realtimeproducts", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    });
   
-  // Eliminar productos
-//   deleteForm.addEventListener("submit", async (e) => {
-//     e.preventDefault();
-//     const id = document.getElementById("id").value;
-//     await fetch("/realtimeproducts", {
-//       method: "DELETE",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ id }),
-//     });
-  
-//     deleteForm.reset();
-//   })
+    deleteForm.reset();
+
+    Swal.fire({
+      text: `Se ha eliminado el producto con ID: `+ id ,
+      icon: "warning",
+      position: "top-center",
+      timer: 2000
+    })
+
+  })
   
