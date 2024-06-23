@@ -4,20 +4,22 @@ import mongoosePaginate from "mongoose-paginate-v2";
 const productCollection = "product";
 
 const productSchema = new mongoose.Schema({
+    id: Number,
     title: String,
     description: String,
+    code: String,
     price: Number,
+    status: {
+        type: Boolean,
+        default: true
+    },
+    stock: Number,
+    category: String,
     thumbnail: {
         type: Array,
         default: []
     },
-    code: String,
-    stock: Number,
-    category: String,
-    status: {
-        type: Boolean,
-        default: true
-    }
+    description2: String
 })
 
 productSchema.plugin(mongoosePaginate);

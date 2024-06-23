@@ -5,12 +5,12 @@ import handlebars from "express-handlebars";
 import { Server } from "socket.io";
 import viewsRoutes from "./routes/views.routes.js";
 import productManager from "./dao/fileSystem/productManager.js";
-import { connectMongoDB } from "./config/mongoDB.config.js";
+import { conectarMongoDB } from "./config/mongoDB.config.js";
 
 const PORT = 8080;
 const app = express();
 
-connectMongoDB();
+conectarMongoDB();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,7 +32,7 @@ app.use("/", viewsRoutes);
 
 
 const httpServer = app.listen(PORT, () => {
-    console.log(`El servidor ahora esta escuchando en el puerto ${PORT}.`);
+    console.log(`El servidor ahora esta escuchando en el puerto ${PORT}`);
 });
 
 
@@ -41,7 +41,7 @@ export const io = new Server(httpServer);
 
 
 io.on("connection", async socket => {
-    console.log("Un nuevo usuario se ha conectado al servidor.");
+    console.log("Un nuevo usuario se ha conectado al servidor");
     const products = await productManager.getProducts();
     io.emit("products", products);
 });
