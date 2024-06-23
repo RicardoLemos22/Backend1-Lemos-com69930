@@ -1,0 +1,23 @@
+npm i express
+npm i -D nodemon
+npm i express-handlebars
+npm i socket.io
+npm i mongoose
+npm i mongoose-paginate-v2
+
+Instalar todos los paquetes
+npm i
+
+luego en "package.json"
+add >> "type": "module",
+//para que funcionen los imports
+
+tb crear un script para levantar el server
+>>"dev": "nodemon ./src/app"
+
+luego tb si no esta instalado de forma global ejecutar asi:
+>>"dev": "npx nodemon src/app"
+
+
+al instalar me informa de vulnerabilidades, las corrijo con
+npm audit fix
