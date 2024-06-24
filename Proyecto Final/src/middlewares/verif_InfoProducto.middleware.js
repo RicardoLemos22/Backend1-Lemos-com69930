@@ -3,6 +3,7 @@ import { request, response } from "express";
 //import productManager from "../dao/fileSystem/productManager.js";
 import productDao from "../dao/mongoDB/product.dao.js";
 
+// Verifico la información del Producto
 export const verif_InfoProducto = async(req = request, res = response, next) => {
     try {
         const { title, description, price, code, stock, category } = req.body;

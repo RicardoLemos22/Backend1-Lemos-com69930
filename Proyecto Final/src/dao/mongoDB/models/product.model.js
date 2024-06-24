@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 
+//aunque Mongo lo registra como "products", aca lo asigno en singular
 const productCollection = "product";
 
 const productSchema = new mongoose.Schema({

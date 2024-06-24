@@ -4,7 +4,8 @@ import __dirname from "./dirname.js"
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
 import viewsRoutes from "./routes/views.routes.js";
-import productManager from "./dao/fileSystem/productManager.js";
+//FS desactivo
+//import productManager from "./dao/fileSystem/productManager.js";
 import { conectarMongoDB } from "./config/mongoDB.config.js";
 
 const PORT = 8080;
@@ -42,6 +43,7 @@ export const io = new Server(httpServer);
 
 io.on("connection", async socket => {
     console.log("Un nuevo usuario se ha conectado al servidor");
-    const products = await productManager.getProducts();
-    io.emit("products", products);
+    //FS desactivo
+    // const products = await productManager.getProducts();
+    // io.emit("products", products);
 });
