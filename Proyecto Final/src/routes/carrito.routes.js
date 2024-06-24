@@ -77,6 +77,7 @@ router.post("/:cid/product/:pid", async (req, res) => {
   }
 });
 
+
 // Elimino un producto de un carro
 router.delete("/:cid/product/:pid", async (req, res) => {
   try {
@@ -106,16 +107,25 @@ router.delete("/:cid/product/:pid", async (req, res) => {
 });
 
 
-
+//Agrego un producto con X cantidad fija, a un carro existente
 router.put("/:cid/product/:pid", async (req, res) => {
   try {
     const { cid, pid } = req.params;
     const { quantity } = req.body
 
+    // Valido que el cid sea un ObjectId válido de MongoDB
+    if (!mongoose.Types.ObjectId.isValid(cid)) {
+      return res.status(400).json({ status: "Error", msg: "El ID de carrito proporcionado es inválido" });
+    }
+    // Valido que el pid sea un ObjectId válido de MongoDB
+    if (!mongoose.Types.ObjectId.isValid(pid)) {
+      return res.status(400).json({ status: "Error", msg: "El ID de producto proporcionado es inválido" });
+    }
+    
     const product = await productDao.getById(pid);
-    if (!product) return res.status(404).json({ status: "Error", msg: `No se encontró el producto con el id ${pid}` });
+    if (!product) return res.status(404).json({ status: "Error", msg: "No existe un producto para el ID ingresado" });
     const cart = await cartDao.getById(cid);
-    if (!cart) return res.status(404).json({ status: "Error", msg: `No se encontró el carrito con el id ${cid}` });
+    if (!cart) return res.status(404).json({ status: "Error", msg: "El carrito no se ha encontrado" });
 
     const cartUpdate = await cartDao.updateQuantityProductInCart(cid, pid, Number(quantity));
 
@@ -123,20 +133,28 @@ router.put("/:cid/product/:pid", async (req, res) => {
     
   } catch (error) {
     console.log(error);
-    res.status(500).json({ status: "Erro", msg: "Error interno del servidor" });
+    res.status(500).json({ status: "Error", msg: "Ha ocurrido un error interno del servidor." });
   }
 });
 
+
+//Elimina todos los productos de un carrito
 router.delete("/:cid", async (req, res) => {
   try {
     const { cid } = req.params;
-    const cart = await cartDao.clearProductsToCart(cid);
-    if (!cart) return res.status(404).json({ status: "Error", msg: "Carrito no encontrado" });
+    // Valido que el cid sea un ObjectId válido de MongoDB
+    if (!mongoose.Types.ObjectId.isValid(cid)) {
+      return res.status(400).json({ status: "Error", msg: "El ID de carrito proporcionado es inválido" });
+    }
 
+    const cart = await cartDao.clearProductsToCart(cid);
+    if (!cart) return res.status(404).json({ status: "Error", msg: "El carrito no se ha encontrado" });
+    
     res.status(200).json({ status: "success", payload: cart });
+    
   } catch (error) {
     console.log(error);
-    res.status(500).json({ status: "Erro", msg: "Error interno del servidor" });
+    res.status(500).json({ status: "Error", msg: "Ha ocurrido un error interno del servidor." });
   }
 });
 

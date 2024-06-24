@@ -43,23 +43,32 @@ const deleteProductToCart = async (cid, pid) => {
   return cart;
 };
 
-
-
+//Agrego un producto con X cantidad fija, a un carro existente
 const updateQuantityProductInCart = async (cid, pid, quantity) => {
   const cart = await cartModel.findById(cid);
   const product = cart.products.find(element => element.product == pid);
-  product.quantity = quantity;
-
+  
+  if (product) {
+    product.quantity = quantity;
+    
+  } else {
+    //sino existe lo agrego con cant=quantity
+    cart.products.push({ product: pid, quantity });
+  }
+  
   await cart.save();
   return cart;
 }
 
+
+//Elimina todos los productos de un carrito
 const clearProductsToCart = async (cid) => {
   const cart = await cartModel.findById(cid);
   cart.products = []
   await cart.save()
   return cart;
 }
+
 
 //Recupero todos los carritos 
 const getAll = async () => {

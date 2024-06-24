@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
         const products = await productDao.getAll({ category }, options);
         return res.status(200).json({ status: "success", payload: products });
       }
-  
+
       if (status) {
         const products = await productDao.getAll({ status }, options);
         return res.status(200).json({ status: "success", payload: products });
